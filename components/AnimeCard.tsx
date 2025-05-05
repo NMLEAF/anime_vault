@@ -2,14 +2,20 @@ import Image from "next/image";
 
 export interface AnimeProp {
   id: string;
-  name: string;
-  image: {
-    original: string;
+  title_english: string;
+  images: {
+    jpg: {
+      image_url: string;
+    };
   };
   kind: string;
   episodes: number;
   episodes_aired: number;
   score: string;
+  genres: {
+    name: string;
+  };
+  mal_id: number;
 }
 
 interface Prop {
@@ -22,20 +28,21 @@ function AnimeCard({ anime }: Prop) {
     <div className="max-w-sm rounded relative w-full">
       <div className="relative w-full h-[37vh]">
         <Image
-          src={`https://shikimori.one${anime.image.original}`}
-          alt={anime.name}
+          src={anime.images.jpg.image_url}
+          alt="Anime img"
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 100vw"
           className="rounded-xl"
         />
       </div>
       <div className="py-4 flex flex-col gap-3">
         <div className="flex justify-between items-center gap-1">
           <h2 className="font-bold text-white text-xl line-clamp-1 w-full">
-            {anime.name}
+            {anime.title_english}
           </h2>
           <div className="py-1 px-2 bg-[#161921] rounded-sm">
             <p className="text-white text-sm font-bold capitalize">
-              {anime.kind}
+              {anime.genres.name}
             </p>
           </div>
         </div>
